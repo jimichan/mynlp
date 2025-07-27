@@ -1,13 +1,12 @@
 package com.mayabot.nlp;
 
-import com.mayabot.nlp.algorithm.collection.dat.DATMapMatcher;
-import com.mayabot.nlp.algorithm.collection.dat.DoubleArrayTrieMap;
+import com.mayabot.nlp.algorithm.collection.dat.*;
+import com.mayabot.nlp.common.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DoubleArrayTrieTest {
 
@@ -73,4 +72,40 @@ public class DoubleArrayTrieTest {
         Assert.assertTrue(!trie.containsKey("一举2"));
     }
 
+    @Test
+    public void test2() {
+        TreeSet<String> set = new TreeSet<>();
+
+        set.addAll(Lists.newArrayList("0/","10"));
+        List<String> list = set.stream().collect(Collectors.toList());
+        System.out.println(list);
+        DoubleArrayTrie dat = new DoubleArrayTrie(
+               list
+        );
+
+        int x = dat.indexOf("0/");
+
+        System.out.println(x);
+        for (int i = 0; i < 128; i++) {
+            System.out.print(dat.base[i]+" ");
+        }
+        System.out.println();
+        for (int i = 0; i < 128; i++) {
+            System.out.print(dat.check[i]+" ");
+        }
+        System.out.println();
+//        long t1 = System.currentTimeMillis();
+//        int c = 0;
+//        for (int i = 0; i < 100000; i++) {
+//            DATMatcher matcher = dat.matcher("你好good世界你好世界");
+//
+//            while (matcher.next()) {
+//                c+=matcher.getLength();
+//            }
+//        }
+//
+//        long t2 = System.currentTimeMillis();
+//        System.out.println(c+"耗时 "+(t2-t1));
+
+    }
 }
